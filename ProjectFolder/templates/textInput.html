@@ -1,0 +1,32 @@
+
+{% extends "baseplate.html" %}
+{% block content %}
+<div class="card mx-auto float-md-left w-100 text-center" id="card">
+	<div class="card-header">
+	</div>
+	<section>
+		<div class="card-body">
+			<h1 class="card-title">Insert CV</h1>
+			<p class="card-text">Instructions</p>
+			<p class="card-text">Input your information into this form below</p>
+		</div>
+	</section>
+		<div>
+			<form action ="/feedback" method="POST">
+				<div class="form-group" name="input">
+					<label for="inputCV">CV text input</label>
+					<textarea name="text" class="form-control" id="inputCV" rows="15"></textarea>
+					<label for="jobPosition">Position</label>
+					<input type="text" name="position" class="form-control" id="jobPosition" placeholder="Enter Position">
+					<label for="jobLocation">Location</label>
+					<input type="text" name="location" class="form-control" id="jobLocation" placeholder="Enter Location">
+					<input type="hidden" name="Form" value="textInput">
+					<button type="reset" class="btn btn-primary my-1">Clear</button>
+					<button type="submit" class="btn btn-primary my-1">Submit</button>
+				</div>
+			</form>
+		</div>
+	<section>
+	</section>
+</div>
+{% endblock %}

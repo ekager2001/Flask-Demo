@@ -1,0 +1,90 @@
+{% extends "baseplate.html" %}
+{% block page %}
+<div class="container-fluid  p-5">
+	<div class="row">
+		<div class="col-xs-12 col-sm-0 text-center"></div>
+		<div class="col-xs-12 col-sm-6 text-center">
+			<article>
+				<div class="card mx-auto float-md-left w-100 text-center" id="card">
+				<div class="card-header"></div>
+						<section>
+							<div class="card-body">
+								<h1 class="card-title">Your {{inputName}}</h1>
+								<div class="card">
+									<p class="card-text">{{ html|markdown }}</p>
+								</div>
+							</div>							
+						<section>
+							<div class="card-body">
+								<div class="card">
+								<label for="skills"><h2 class="card-header">Technical Skills</h2></label>
+								<ul class="list-group" id="skills">	
+									{% for skill in entitySkills %}
+										{%for techSkill in skill['skills'] %}
+										<li class = "list-group-item">{{ techSkill.skill }} </li>
+										{% endfor %}	
+									{% endfor %}	
+								</ul>	
+								</div>
+								<div class="card">
+								<label for="softskills"><h2 class="card-header">Soft Skills</h2></label>
+								<ul class="list-group" id="softskills">	
+									{% for skill in entitySkills %}
+										{% for softSkill in skill['softSkills'] %}
+										<li class = "list-group-item">{{ softSkill.skill }} </li>
+										{% endfor %}	
+									{% endfor %}	
+								</ul>	
+								</div>
+							</div>
+						</section>
+				</div>
+			</article>
+		</div>
+		<div class="col-xs-12 col-sm-6 text-center">
+			<aside>
+				<div class="card mx-auto float-md-right w-100 text-center" id="jobsFeed">
+					<div class="card-header"></div>
+					<div class="card-body">
+						{% for output in outputs %}
+						<div class="card">
+							<h1 class="card-title">{{output.title}}</h1>
+							<h1 class="card-title">{{output.name}}</h1>
+							<h2> {{output.company}}</h2>
+							<h2>Match percentage: {{output.match}} %</h2>
+							<p class="card-text">{{ output.html|markdown }}</p>
+							<label for="reqskills"><h2 class="card-header">Skills</h2></label>
+							<ul class="list-group" id="reqskills">	
+								{% for skill  in output.skillsMet %}
+									{% if skill.type == "SKILL"%}
+									<li class = "list-group-item">Skill Found: {{ skill.skill }}</p>
+									{% endif %}
+								{% endfor %}
+								{% for skill  in output.skillsNotMet %}
+									{% if skill.type == "SKILL"%}
+									<li class = "list-group-item">Missing Skill: {{ skill.skill }}</p>
+									{% endif %}
+								{% endfor %}
+							</ul>
+							<label for="reqsoftskills"><h2 class="card-header">Soft Skills</h2></label>
+							<ul class="list-group" id="reqsoftskills">
+								{% for skill  in output.skillsMet %}
+									{% if skill.type == "SOFT-SKILL"%}
+									<li class = "list-group-item">Soft-Skill Found: {{ skill.skill }}</p>
+									{% endif %}
+								{% endfor %}	
+								{% for skill  in output.skillsNotMet %}
+									{% if skill.type == "SOFT-SKILL"%}
+									<li class = "list-group-item">Missing Soft Skill: {{ skill.skill }}</p>
+									{% endif %}
+								{% endfor %}
+							</ul>	
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</aside>
+		</div>
+	</div>
+</div>
+{% endblock %}
