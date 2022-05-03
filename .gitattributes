@@ -1,0 +1,9 @@
+ProjectFolder/Components/ModelData/.gitattributes filter=lfs diff=lfs merge=lfs -text
+/ProjectFolder/Components/ModelData/model-last/ner/cfg filter=lfs diff=lfs merge=lfs -text
+/ProjectFolder/Components/ModelData/model-last/ner/model filter=lfs diff=lfs merge=lfs -text
+/ProjectFolder/Components/ModelData/model-last/ner/moves filter=lfs diff=lfs merge=lfs -text
+/ProjectFolder/Components/ModelData/model-last/tok2vec/cfg filter=lfs diff=lfs merge=lfs -text
+/ProjectFolder/Components/ModelData/model-last/tok2vec/model filter=lfs diff=lfs merge=lfs -text
+/ProjectFolder/Components/ModelData/model-last/tokenizer filter=lfs diff=lfs merge=lfs -text
+/ProjectFolder/Components/ModelData/model-last/vocab/key2row filter=lfs diff=lfs merge=lfs -text
+/ProjectFolder/Components/ModelData/model-last/vocab/vectors filter=lfs diff=lfs merge=lfs -text
