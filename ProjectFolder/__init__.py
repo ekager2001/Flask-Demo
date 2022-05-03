@@ -39,6 +39,7 @@ def create_app():
 
     AN = Analyser() #Original Addition
     AN.createSkillsExtractor(skill_pattern_path) #Original Addition
+    AN.createWebScraper()
     app.config['Analyser'] = AN  #Original Addition
     from .models import User
 

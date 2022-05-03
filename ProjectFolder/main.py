@@ -111,7 +111,6 @@ def feedback():
         outputs = None
 
         AN = current_app.config['Analyser']
-        AN.createWebScraper()
         tuple = AN.skillsExtract(rawtext) #rawtext is the CV for job applier, and JobDesc for recruiter
         html = tuple[0]    
         entitySkills = tuple[1] 
