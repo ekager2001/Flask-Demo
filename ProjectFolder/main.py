@@ -61,21 +61,17 @@ def feedback():
         return redirect('/')
 
     if request.method == 'POST':
-        #Variables!
         type = request.form['Form']
-        if type != "multiFile" and type !="JobDescInput":
+        if type != "multiFile" and type !="JobDescInput": #for Recruiter
             position= request.form['position']
             location= request.form['location']
             searchQ =(position, location)
-        if type == "JobDescInput":
+        if type == "JobDescInput": #for Job seeker
             title = request.form['title']
             company = request.form['company']
-            jobDesc = request.form['text']
-        resumeSkills = []      
+            jobDesc = request.form['text']    
         html=""
         rawtext=""
-        jobs=None
-        skill_pattern_path = "ProjectFolder/Components/ModelData/jz_skill_patterns.jsonl"
 
         if type=="textInput":
             rawtext = request.form.get('text')
@@ -105,24 +101,21 @@ def feedback():
                 print(filename)
                 text = PDFconvert.extract(file) 
                 listCandidates.append((filename[:-4].replace("_", " "),text))
-    # return render_template('feedback.html', rawtext=rawtext, resumeSkills=resumeSkills, html=html)
        
-        #Refactor'd code to use an abstract Analyser Class! 
         outputs = None
-
         AN = current_app.config['Analyser']
         tuple = AN.skillsExtract(rawtext) #rawtext is the CV for job applier, and JobDesc for recruiter
         html = tuple[0]    
         entitySkills = tuple[1] 
-        unique = str(uuid.uuid4())
-        if type=="multiFile":
+        unique = str(uuid.uuid4()) #unique file name
+        if type=="multiFile": #check if multiple pdf files uploaded
             inputName = "Job Description"
             try:
-                outputs = AN.rankCandidates(listCandidates, entitySkills)
+                outputs = AN.rankCandidates(listCandidates, entitySkills) #rank candidates 
             except:
                 return redirect("/") 
             string = "Candiates here:"
-            f = open(os.path.join(current_app.config['DOWNLOAD_FOLDER'], unique+".txt"), "w", encoding="utf-8")
+            f = open(os.path.join(current_app.config['DOWNLOAD_FOLDER'], unique+".txt"), "w", encoding="utf-8") #write to file
             f.write("Job description: \n")
             f.write(rawtext+"\n")
             f.write(string)
@@ -146,7 +139,7 @@ def feedback():
                 for skill  in output.skillsNotMet:
                     if skill.type == "SOFT-SKILL": f.write(skill.skill+"\n") 
             f.close()
-            item = History(userID = current_user.id, fileName = unique+".txt")
+            item = History(userID = current_user.id, fileName = unique+".txt")#update history object
             db.session.add(item)
             db.session.commit()
         elif type == 'textInput' or type == "file":
@@ -155,10 +148,9 @@ def feedback():
                 outputs = AN.webScrape(searchQ, entitySkills)
             except:
                 return redirect("/") 
-        #Suffered problem with too long stuff like this:
             string = "You searched for Job: {} \nLocation: {}"
             string = string.format(searchQ[0],searchQ[1])
-            f = open(os.path.join(current_app.config['DOWNLOAD_FOLDER'], unique+".txt"), "w", encoding="utf-8")
+            f = open(os.path.join(current_app.config['DOWNLOAD_FOLDER'], unique+".txt"), "w", encoding="utf-8") #write to file
             f.write(string)
             for output in outputs:
                 f.write("\n"+ output.title  +" \n")
@@ -171,14 +163,14 @@ def feedback():
                 for skill  in output.skillsNotMet:
                     if skill.type == "SOFT-SKILL": f.write(skill.skill+"\n") 
             f.close()
-            item = History(userID = current_user.id, fileName = unique+".txt")
+            item = History(userID = current_user.id, fileName = unique+".txt") #update history object
             db.session.add(item)
             db.session.commit()
         else: 
             jobInfo = [title,company,jobDesc]
             inputName = "CV"
             outputs = AN.compare(jobInfo, entitySkills)
-            f = open(os.path.join(current_app.config['DOWNLOAD_FOLDER'], unique+".txt"), "w", encoding="utf-8")
+            f = open(os.path.join(current_app.config['DOWNLOAD_FOLDER'], unique+".txt"), "w", encoding="utf-8") #write to file
             for output in outputs:
                 f.write("\n"+ output.title  +" \n")
                 f.write(output.company + "\n")
@@ -190,11 +182,11 @@ def feedback():
                 for skill  in output.skillsNotMet:
                     if skill.type == "SOFT-SKILL": f.write(skill.skill+"\n") 
             f.close()
-            item = History(userID = current_user.id, fileName = unique+".txt")
+            item = History(userID = current_user.id, fileName = unique+".txt") #update history object
             db.session.add(item)
             db.session.commit()
-    end = time.time()
-    delta = (end - start)
+    end = time.time() #timing function 
+    delta = (end - start) #delta time for checking efficency. 
     #print("{:.2f} seconds"delta)
     return render_template('feedback.html',inputName=inputName, entitySkills=entitySkills, html=html, outputs=outputs)
 
