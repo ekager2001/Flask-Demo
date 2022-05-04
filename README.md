@@ -18,9 +18,8 @@ To run this software do these steps
 
 export settings:
 1. set FLASK_APP=ProjectFolder
-2. (for debuger set FLASK_DEBUG=True)
-Run setting:
-- python - m flask run
+- (for debuger set FLASK_DEBUG=True)
+2. python - m flask run
 
 Test Accounts:
 - JohnDoe@gmail.com| password: 12345 - Recruiter
