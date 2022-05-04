@@ -23,4 +23,4 @@ export settings:
 
 Test Accounts:
 - JohnDoe@gmail.com| password: 12345 - Recruiter
-- MarkSmith@gmail.com | passowrd: 12345 - Applicant
+- MarkSmith@gmail.com | password: 12345 - Applicant
