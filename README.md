@@ -20,6 +20,7 @@ export settings:
 1. set FLASK_APP=ProjectFolder
 - (for debuger set FLASK_DEBUG=True)
 2. python - m flask run
+3. got to localhost:5000
 
 Test Accounts:
 - JohnDoe@gmail.com| password: 12345 - Recruiter
