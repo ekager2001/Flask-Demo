@@ -31,7 +31,7 @@ class Analyser:
     def createSkillsExtractor(self, skill_pattern_path):
         SE = SkillsExtractor(skill_pattern_path)
         self.setSkillsExtractor(SE)
-        print(sys.path[1])
+        #print(sys.path[1])
         self.getSE().start("ProjectFolder/Components/ModelData/model-last")
         
     #Delete previous webscraper, create a new one

@@ -1,3 +1,5 @@
+import time
+from tracemalloc import start
 from flask import Blueprint, render_template, redirect, request, send_file, session
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
@@ -5,11 +7,8 @@ import zipfile
 import os
 from ProjectFolder.models import History
 from . import db
-from .Components.Analyser import Analyser
 from flask import current_app
 from .Components.PDFconverter import PDFconverter
-from flask_bootstrap import Bootstrap
-from flaskext.markdown import Markdown
 import os
 import uuid
 
@@ -56,6 +55,7 @@ def recruiter():
 
 @main.route('/feedback', methods=['GET','POST'])
 def feedback():
+    start = time.time()
     error= None
     if request.method == 'GET':
         return redirect('/')
@@ -114,7 +114,7 @@ def feedback():
         tuple = AN.skillsExtract(rawtext) #rawtext is the CV for job applier, and JobDesc for recruiter
         html = tuple[0]    
         entitySkills = tuple[1] 
-        unique_filename = str(uuid.uuid4())
+        unique = str(uuid.uuid4())
         if type=="multiFile":
             inputName = "Job Description"
             try:
@@ -122,7 +122,7 @@ def feedback():
             except:
                 return redirect("/") 
             string = "Candiates here:"
-            f = open(os.path.join(current_app.config['DOWNLOAD_FOLDER'], unique_filename+".txt"), "w", encoding="utf-8")
+            f = open(os.path.join(current_app.config['DOWNLOAD_FOLDER'], unique+".txt"), "w", encoding="utf-8")
             f.write("Job description: \n")
             f.write(rawtext+"\n")
             f.write(string)
@@ -146,7 +146,7 @@ def feedback():
                 for skill  in output.skillsNotMet:
                     if skill.type == "SOFT-SKILL": f.write(skill.skill+"\n") 
             f.close()
-            item = History(userID = current_user.id, fileName = unique_filename+".txt")
+            item = History(userID = current_user.id, fileName = unique+".txt")
             db.session.add(item)
             db.session.commit()
         elif type == 'textInput' or type == "file":
@@ -158,7 +158,7 @@ def feedback():
         #Suffered problem with too long stuff like this:
             string = "You searched for Job: {} \nLocation: {}"
             string = string.format(searchQ[0],searchQ[1])
-            f = open(os.path.join(current_app.config['DOWNLOAD_FOLDER'], unique_filename+".txt"), "w", encoding="utf-8")
+            f = open(os.path.join(current_app.config['DOWNLOAD_FOLDER'], unique+".txt"), "w", encoding="utf-8")
             f.write(string)
             for output in outputs:
                 f.write("\n"+ output.title  +" \n")
@@ -171,14 +171,14 @@ def feedback():
                 for skill  in output.skillsNotMet:
                     if skill.type == "SOFT-SKILL": f.write(skill.skill+"\n") 
             f.close()
-            item = History(userID = current_user.id, fileName = unique_filename+".txt")
+            item = History(userID = current_user.id, fileName = unique+".txt")
             db.session.add(item)
             db.session.commit()
         else: 
             jobInfo = [title,company,jobDesc]
             inputName = "CV"
             outputs = AN.compare(jobInfo, entitySkills)
-            f = open(os.path.join(current_app.config['DOWNLOAD_FOLDER'], unique_filename+".txt"), "w", encoding="utf-8")
+            f = open(os.path.join(current_app.config['DOWNLOAD_FOLDER'], unique+".txt"), "w", encoding="utf-8")
             for output in outputs:
                 f.write("\n"+ output.title  +" \n")
                 f.write(output.company + "\n")
@@ -190,9 +190,12 @@ def feedback():
                 for skill  in output.skillsNotMet:
                     if skill.type == "SOFT-SKILL": f.write(skill.skill+"\n") 
             f.close()
-            item = History(userID = current_user.id, fileName = unique_filename+".txt")
+            item = History(userID = current_user.id, fileName = unique+".txt")
             db.session.add(item)
             db.session.commit()
+    end = time.time()
+    delta = (end - start)
+    #print("{:.2f} seconds"delta)
     return render_template('feedback.html',inputName=inputName, entitySkills=entitySkills, html=html, outputs=outputs)
 
 @main.route('/download', methods=['GET','POST'])
