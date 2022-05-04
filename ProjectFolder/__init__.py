@@ -21,10 +21,10 @@ def create_app():
     def allowed_file(filename):
         return '.' in filename and \
             filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
     app = Flask(__name__)
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER 
     #Flask addition ends here ^
+    
     app.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER #Original Addition
     app.config['SECRET_KEY'] = 'Ge-cwoTGa0xctuy5ivQJvQ'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
@@ -39,7 +39,7 @@ def create_app():
 
     AN = Analyser() #Original Addition
     AN.createSkillsExtractor(skill_pattern_path) #Original Addition
-    AN.createWebScraper()
+    AN.createWebScraper() #Original Addition
     app.config['Analyser'] = AN  #Original Addition
     from .models import User
 

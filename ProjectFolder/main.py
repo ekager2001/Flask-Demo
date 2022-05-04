@@ -33,20 +33,20 @@ def index():
 def profile():
     return render_template('profile.html')
 
-@main.route('/textInput')
-@login_required
-def textInput():
-    return render_template('JobDescCVinput.html')
-
-@main.route('/webScrapeJobDesc')
-@login_required
-def textUpload():
-    return render_template('textInput.html')
-
 @main.route('/fileUpload')
 @login_required
-def fileUpload():
+def textInput():
     return render_template('fileUpload.html')
+
+@main.route('/textInputWebscrape')
+@login_required
+def textUpload():
+    return render_template('textInputWebscrape.html')
+
+@main.route('/fileUploadWebScrape')
+@login_required
+def fileUpload():
+    return render_template('fileUploadWebScrape.html')
 
 @main.route('/recruit')
 @login_required

@@ -14,16 +14,22 @@
 		<div>
 			<form action ="/feedback" method="POST" enctype="multipart/form-data">
 				<div class="form-group" name="input">
+
 					<label for="CVpdf" class="form-label">ONLY PDF FORMAT ALLOWED!</label>
 					<input type="file" class="form-control" name="CVpdf">
-					<label for="jobPosition">Position</label>
-					<input type="text" name="position" class="form-control" id="jobPosition" placeholder="Enter Position">
-					<label for="jobLocation">Location</label>
-					<input type="text" name="location" class="form-control" id="jobLocation" placeholder="Enter Location">
-					<input type="hidden" name="Form" value="file">
+
+					<label for="inputJobDesc">Job Title</label>
+					<input class="form-control" type="text" name="title">
+
+					<label for="inputJobDesc">Company</label>
+					<input class="form-control" type="text" name="company">
+
+					<label for="inputJobDesc">JobDesc input</label>
+					<textarea name="text" class="form-control" id="inputJobDesc" rows="15"></textarea>
+
+					<input type="hidden" name="Form" value="JobDescInput">
 					<button type="reset" class="btn btn-primary my-1">Clear</button>
 					<button type="submit"class="btn btn-primary my-1">Submit</button>
-			
 				</div>
 			</form>
 		</div>
