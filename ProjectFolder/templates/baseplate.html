@@ -23,9 +23,9 @@
 			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 			<li class="nav-item active"><a class="nav-link" href="/">Home<span class="sr-only"></span></a></li>
 			{% if current_user.userType == "Applicant" %}
-			<li class="nav-item active"><a class="nav-link" href="/textInput">JobDesc+CVfile<span class="sr-only"></span></a></li>
-			<li class="nav-item active"><a class="nav-link" href="/webScrapeJobDesc">Text+WebScrape<span class="sr-only"></span></a></li>
-			<li class="nav-item active"><a class="nav-link" href="/fileUpload">File Upload+WebScrape<span class="sr-only"></span></a></li>
+			<li class="nav-item active"><a class="nav-link" href="/fileUpload">JobDesc+CVfile<span class="sr-only"></span></a></li>
+			<li class="nav-item active"><a class="nav-link" href="textInputWebscrape">Text+WebScrape<span class="sr-only"></span></a></li>
+			<li class="nav-item active"><a class="nav-link" href="/fileUploadWebScrape">File Upload+WebScrape<span class="sr-only"></span></a></li>
 			{% endif %}
 			{% if current_user.userType == "Recruiter" %}
 			<li class="nav-item active"><a class="nav-link" href="/recruit">Recruiter<span class="sr-only"></span></a></li>
