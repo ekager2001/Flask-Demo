@@ -4,7 +4,7 @@ from flask_login import login_user, logout_user
 from .models import User
 from . import db
 
-# Code takened and adapted from Digital Ocean:
+# Code takened from Digital Ocean:
 # https://www.digitalocean.com/community/tutorials/how-to-add-authentication-to-your-app-with-flask-login#step-5-creating-user-models
 auth = Blueprint('auth', __name__)
 

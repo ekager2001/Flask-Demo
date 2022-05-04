@@ -47,7 +47,6 @@ class SkillsExtractor:
         ruler.from_disk(self.skill_pattern_path) 
         self.setNLP(nlp)  #ORIGINAL ADDITION 
         
-    #Getters from spacy resume tool not my original code!
     def get_skills(self, text):
         nlp = self.getNLP()  #ORIGINAL ADDITION 
         doc = nlp(text)

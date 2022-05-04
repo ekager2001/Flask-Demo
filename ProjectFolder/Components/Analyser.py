@@ -42,12 +42,12 @@ class Analyser:
     #extract skills
     def skillsExtract(self, rawtext):
         entitySkills = []
-        skills =  self.getSE().unique_skills(self.getSE().get_skills(rawtext.lower()))
+        skills =  self.getSE().unique_skills(self.getSE().get_skills(rawtext.lower())) #Find unique skills
         #print(skills)
-        softSkills = self.getSE().unique_skills(self.getSE().get_soft_skills(rawtext.lower())) 
+        softSkills = self.getSE().unique_skills(self.getSE().get_soft_skills(rawtext.lower())) #Find unique soft skills
         #print(softSkills)
-        entitySkills.append(Skills((skills,softSkills)))
-        html = self.getSE().display(rawtext.lower())
+        entitySkills.append(Skills((skills,softSkills))) #Append tupples of skills and soft skills
+        html = self.getSE().display(rawtext.lower()) #create html of job description highlighting skills
         return (html, entitySkills)
 
     def webScrape(self, searchQ, resumeSkills):
